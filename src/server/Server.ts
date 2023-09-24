@@ -3,6 +3,7 @@ import cors from 'cors';
 
 import { ENV } from './environment';
 import { ROUTES } from './routes';
+import { ErrorHandler } from './errorHandler';
 
 export class Server {
   private app: Application;
@@ -27,6 +28,8 @@ export class Server {
     Object.values(ROUTES).forEach(({ basePath, router }) => {
       this.app.use(basePath, router);
     });
+
+    this.app.use(ErrorHandler);
   }
 
   public listen(): void {
