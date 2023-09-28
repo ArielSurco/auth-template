@@ -1,13 +1,15 @@
+import { Router } from 'express';
+
 import AuthRouter from '../auth/router';
-import MangasRouter from '../mangas/router';
+
+interface Route {
+  basePath: string;
+  router: Router;
+}
 
 export const ROUTES = {
-  mangas: {
-    basePath: '/api/mangas',
-    router: MangasRouter,
-  },
   auth: {
     basePath: '/api/auth',
     router: AuthRouter,
   },
-} as const;
+} as const satisfies Record<string, Route>;
