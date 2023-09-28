@@ -8,9 +8,11 @@ const users: User[] = [];
 
 export const createMemoryUserRepository = (): UserRepository => ({
   create,
+  findUserByEmail,
+  findUserByUsername,
 });
 
-export const create = async ({ username, email, password }: RegisterUser): Promise<void> => {
+const create = async ({ username, email, password }: RegisterUser): Promise<void> => {
   const encryptedPassword = await encryptPassword(password);
   const newUser: User = {
     id: users.length.toString(),
@@ -18,9 +20,20 @@ export const create = async ({ username, email, password }: RegisterUser): Promi
     email,
     password: encryptedPassword,
   };
-  console.log(newUser);
 
   users.push(newUser);
+};
+
+const findUserByEmail = async (email: string): Promise<User | null> => {
+  const foundUser = users.find((user) => user.email === email);
+
+  return foundUser ?? null;
+};
+
+const findUserByUsername = async (username: string): Promise<User | null> => {
+  const foundUser = users.find((user) => user.username === username);
+
+  return foundUser ?? null;
 };
 
 /* UTILS */
