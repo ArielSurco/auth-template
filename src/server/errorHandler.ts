@@ -7,13 +7,14 @@ export const ErrorHandler = (err: ResponseError, req: Request, res: Response, ne
     return next(err);
   }
 
-  const errorStatus = err.statusCode || 500;
-  const errorMessage = err.message || 'Something went wrong';
+  const errorStatus = err.statusCode ?? 500;
+  const errorMessage = err.message || 'Internal server error';
+  const showStack = err.withStack || errorStatus === 500;
 
   res.status(errorStatus);
   res.send({
     status: errorStatus,
     message: errorMessage,
-    stack: err.stack,
+    stack: showStack ? err.stack : undefined,
   });
 };

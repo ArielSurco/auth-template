@@ -43,9 +43,3 @@ const encryptPassword = async (password: string): Promise<string> => {
 
   return encryptedPassword;
 };
-
-// const comparePassword = async (password: string, receivedPassword: string): Promise<boolean> => {
-//   const isSamePassword = await bcrypt.compare(password, receivedPassword);
-
-//   return isSamePassword;
-// };

@@ -4,6 +4,7 @@ import { body } from 'express-validator';
 import { signUp } from './controllers/sign-up';
 import { signIn } from './controllers/sign-in';
 import { validateFields } from './middlewares/validateFields';
+import { signOut } from './controllers/sign-out';
 
 const router = Router();
 
@@ -18,6 +19,15 @@ router.post(
   signUp,
 );
 
-router.post('/sign-in', signIn);
+router.post(
+  '/sign-in',
+  [
+    body('email', 'Email Must be valid').isEmail().notEmpty(),
+    body('password', 'Password is required').notEmpty(),
+    validateFields,
+  ],
+  signIn);
+
+router.get('/sign-out', signOut);
 
 export default router;

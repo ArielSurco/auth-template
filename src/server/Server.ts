@@ -1,5 +1,6 @@
 import express, { type Application } from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 import { ENV } from './environment';
 import { ROUTES } from './routes';
@@ -22,6 +23,7 @@ export class Server {
   private middlewares() {
     this.app.use(cors());
     this.app.use(express.json());
+    this.app.use(cookieParser());
   }
 
   private routes() {
